@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MC Serverlar | Bedrock holat monitoringi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="block"></div>
+    <div>
+      <div class="brand-title pixel">MC SERVERLAR</div>
+      <div class="brand-sub">Bedrock holat monitoringi</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a class="btn btn-ghost" href="/admin">Admin panel</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow"><span class="dot"></span> JONLI KUZATUV — HAR 30 SONIYADA YANGILANADI</div>
+  <h1>Bedrock serverlaringiz doim nazorat ostida</h1>
+  <p>Bu sahifa qo'shilgan barcha Minecraft Bedrock serverlarining onlayn/oflayn holatini avtomatik tekshirib turadi. Har bir server kartasida joriy holat, o'yinchular soni va versiya ko'rsatiladi.</p>
+
+  <div class="stat-row" id="statRow">
+    <div class="stat-card">
+      <div class="stat-num online" id="statOnline">0</div>
+      <div class="stat-label">Onlayn</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num offline" id="statOffline">0</div>
+      <div class="stat-label">Oflayn</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statTotal" style="color:var(--gold)">0</div>
+      <div class="stat-label">Jami server</div>
+    </div>
+  </div>
+</section>
+
+<main class="container" id="content">
+  <!-- bo'limlar shu yerga JS orqali chiqariladi -->
+</main>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

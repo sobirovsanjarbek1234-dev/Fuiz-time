@@ -1,0 +1,13 @@
+{
+  "name": "mc-bedrock-tracker",
+  "version": "1.0.0",
+  "description": "Minecraft Bedrock serverlar holatini kuzatuvchi sayt",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {}
+}

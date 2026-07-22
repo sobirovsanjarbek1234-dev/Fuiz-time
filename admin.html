@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin panel | MC Serverlar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="block"></div>
+    <div>
+      <div class="brand-title pixel">MC SERVERLAR</div>
+      <div class="brand-sub">Admin panel</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <span id="whoami" class="hint" style="margin-right:6px;"></span>
+    <a class="btn btn-ghost" href="/">Saytni ko'rish</a>
+    <button class="btn btn-danger btn-sm" id="logoutBtn">Chiqish</button>
+  </div>
+</header>
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <a href="#servers" data-tab="servers" class="active">Serverlar</a>
+    <a href="#categories" data-tab="categories">Bo'limlar</a>
+    <a href="#admins" data-tab="admins" id="adminsTabLink" style="display:none">Adminlar</a>
+    <a href="#account" data-tab="account">Hisobim</a>
+  </aside>
+
+  <main class="admin-main">
+
+    <div id="tab-servers" class="tab-content">
+      <h2>Serverlar</h2>
+      <button class="btn btn-primary" id="openAddServer">+ Server qo'shish</button>
+      <div class="panel" style="margin-top:20px;">
+        <table class="table" id="serversTable">
+          <thead>
+            <tr><th>Ikonka</th><th>Nomi</th><th>Manzil</th><th>Versiya</th><th>Bo'lim</th><th>Holat</th><th></th></tr>
+          </thead>
+          <tbody id="serversTbody"></tbody>
+        </table>
+        <div id="serversEmpty" class="empty" style="display:none; margin-top:14px;">Hali server qo'shilmagan.</div>
+      </div>
+    </div>
+
+    <div id="tab-categories" class="tab-content" style="display:none">
+      <h2>Bo'limlar</h2>
+      <div class="panel">
+        <h3>Yangi bo'lim qo'shish</h3>
+        <div class="field-row">
+          <div class="field" style="flex:2">
+            <label>Bo'lim nomi</label>
+            <input type="text" id="newCategoryName" placeholder="Masalan: SkyBlock serverlar">
+          </div>
+          <div class="field" style="display:flex; align-items:flex-end;">
+            <button class="btn btn-primary" id="addCategoryBtn">Qo'shish</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <table class="table" id="categoriesTable">
+          <thead><tr><th>Nomi</th><th>Serverlar soni</th><th></th></tr></thead>
+          <tbody id="categoriesTbody"></tbody>
+        </table>
+        <div id="categoriesEmpty" class="empty" style="display:none; margin-top:14px;">Hali bo'lim yaratilmagan.</div>
+      </div>
+    </div>
+
+    <div id="tab-admins" class="tab-content" style="display:none">
+      <h2>Adminlar</h2>
+      <div class="panel">
+        <h3>Yangi admin qo'shish</h3>
+        <div class="field-row">
+          <div class="field">
+            <label>Email</label>
+            <input type="email" id="newAdminEmail" placeholder="admin@example.com">
+          </div>
+          <div class="field">
+            <label>Vaqtinchalik parol</label>
+            <input type="text" id="newAdminPassword" placeholder="kamida 6 belgi">
+          </div>
+        </div>
+        <button class="btn btn-primary" id="addAdminBtn">Admin qo'shish</button>
+        <p class="hint" style="margin-top:10px;">Yangi admin serverlar qo'sha oladi va bo'limlar yarata oladi, lekin boshqa adminlarni boshqara olmaydi.</p>
+      </div>
+      <div class="panel">
+        <table class="table" id="adminsTable">
+          <thead><tr><th>Email</th><th>Roli</th><th></th></tr></thead>
+          <tbody id="adminsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tab-account" class="tab-content" style="display:none">
+      <h2>Hisobim</h2>
+      <div class="panel" style="max-width:420px;">
+        <h3>Parolni almashtirish</h3>
+        <div class="field">
+          <label>Joriy parol</label>
+          <input type="password" id="curPassword">
+        </div>
+        <div class="field">
+          <label>Yangi parol</label>
+          <input type="password" id="newPassword">
+        </div>
+        <button class="btn btn-primary" id="changePasswordBtn">Saqlash</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Server qo'shish/tahrirlash modal -->
+<div class="modal-overlay" id="serverModal" style="display:none;">
+  <div class="modal">
+    <h3 id="serverModalTitle">Server qo'shish</h3>
+    <input type="hidden" id="serverId">
+    <div class="field">
+      <label>Server nomi</label>
+      <input type="text" id="serverName" placeholder="Masalan: Mening SMP serverim">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>IP manzil</label>
+        <input type="text" id="serverIp" placeholder="play.example.com">
+      </div>
+      <div class="field">
+        <label>Port</label>
+        <input type="number" id="serverPort" value="19132">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Versiya</label>
+        <input type="text" id="serverVersion" placeholder="1.21.50">
+      </div>
+      <div class="field">
+        <label>Bo'lim (ixtiyoriy)</label>
+        <select id="serverCategory"><option value="">— Tanlanmagan —</option></select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Server ikonkasi (ixtiyoriy)</label>
+      <div class="icon-upload">
+        <div class="icon-preview" id="iconPreview">Rasm yo'q</div>
+        <button class="btn file-btn" type="button">
+          Rasm tanlash
+          <input type="file" id="serverIconInput" accept="image/png,image/jpeg,image/webp,image/gif">
+        </button>
+      </div>
+      <div class="hint">PNG/JPG/WEBP, maksimal 3MB</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelServerModal">Bekor qilish</button>
+      <button class="btn btn-primary" id="saveServerBtn">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>
